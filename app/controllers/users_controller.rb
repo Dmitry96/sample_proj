@@ -18,6 +18,11 @@ before_action :signed_in_user, only: [:index, :edit, :update, :destroy]
   def edit
   end
 
+def show
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
+  end
+
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User deleted."
